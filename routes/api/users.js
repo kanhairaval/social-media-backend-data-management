@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const {
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  addFriend,
+  deleteFriend
+} = require('../../controllers/userController');
+
+router.route('/').get(getAllUsers).post(createUser);
+
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
+
+router.route('/:userId/friends/:friendId').post(addFriend).delete(deleteFriend);
 
 module.exports = router;
