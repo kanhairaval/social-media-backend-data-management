@@ -9,7 +9,7 @@ module.exports = {
       .catch((err) => res.status(400).json(err));
   },
 
-  // get a singl user by id
+  // get a single user by id
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .populate({
