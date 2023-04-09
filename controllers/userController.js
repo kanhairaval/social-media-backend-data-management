@@ -54,7 +54,7 @@ module.exports = {
       { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new:true }
     )
-      .then((user) => res.json(user))
+      .then((friend) => res.json(friend))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -65,7 +65,12 @@ module.exports = {
       { $pull: { friends: req.params.friendId } },
       { runValidators: true, new:true }
     )
-      .then((user) => res.json({ message: 'Friend deleted'}))
+      .then((friend) => res.json({ message: 'Friend deleted'}))
       .catch((err) => res.status(400).json(err));
   }
 }
+
+// {
+//   "username": "SpicyCurry",
+//   "email": "kellykapoor@dundermifflin.com"
+// }

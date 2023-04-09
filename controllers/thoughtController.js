@@ -6,7 +6,7 @@ module.exports = {
   // get all thoughts
   getAllThoughts(req, res) {
     Thought.find({})
-      .then((users) => res.json(users))
+      .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -16,14 +16,14 @@ module.exports = {
       .populate({
         path: 'reaction',
         select: '-__v'})
-      .then((user) => res.json(user))
+      .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(400).json(err));
   },
 
   // create a thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((users) => res.json(users))
+      .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -34,14 +34,14 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new:true }
     )
-      .then((user) => res.json(user))
+      .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(400).json(err));
   },
 
   // delete a thought
   deleteThought(req, res) {
     User.findOneAndDelete({ _id: req.params.thoughtId })
-      .then((user) => res.json({ message: 'Thought deleted'}))
+      .then((thoughts) => res.json({ message: 'Thought deleted'}))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -52,7 +52,7 @@ module.exports = {
       { $addToSet: { reactions: req.body } },
       { runValidators: true, new:true }
     )
-      .then((user) => res.json(user))
+      .then((reaction) => res.json(reaction))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -63,7 +63,7 @@ module.exports = {
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new:true }
     )
-      .then((user) => res.json({ message: 'Reaction deleted'}))
+      .then((reaction) => res.json({ message: 'Reaction deleted'}))
       .catch((err) => res.status(400).json(err));
   }
 }
