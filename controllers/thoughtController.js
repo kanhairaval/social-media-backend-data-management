@@ -13,9 +13,6 @@ module.exports = {
    // get a thought user by id
    getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .populate({
-        path: 'reaction',
-        select: '-__v'})
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(400).json(err));
   },
@@ -40,7 +37,7 @@ module.exports = {
 
   // delete a thought
   deleteThought(req, res) {
-    User.findOneAndDelete({ _id: req.params.thoughtId })
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thoughts) => res.json({ message: 'Thought deleted'}))
       .catch((err) => res.status(400).json(err));
   },
